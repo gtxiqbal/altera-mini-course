@@ -54,11 +54,10 @@ func autoMigrate(db *gorm.DB) error {
 
 func NewDBMongo() *mongo.Database {
 	clientOptions := options.Client()
-	clientOptions.ApplyURI(fmt.Sprintf("mongodb://%s:%s@%s:%s",
+	clientOptions.ApplyURI(fmt.Sprintf("mongodb+srv://%s:%s@%s/?retryWrites=true&w=majority",
 		os.Getenv("DB_USERNAME_MONGO"),
 		os.Getenv("DB_PASSWORD_MONGO"),
-		os.Getenv("DB_HOST_MONGO"),
-		os.Getenv("DB_PORT_MONGO")))
+		os.Getenv("DB_HOST_MONGO")))
 	connect, err := mongo.Connect(context.Background(), clientOptions)
 	helper.PanicIfError(err)
 	db := connect.Database(os.Getenv("DB_NAME"))
