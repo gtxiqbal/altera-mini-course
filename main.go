@@ -2,16 +2,14 @@ package main
 
 import (
 	"github.com/gtxiqbal/altera-mini-course/config"
-	"github.com/gtxiqbal/altera-mini-course/helper"
 	"github.com/gtxiqbal/altera-mini-course/repository"
 	"github.com/gtxiqbal/altera-mini-course/router"
 	"github.com/gtxiqbal/altera-mini-course/service"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
-	helper.PanicIfError(err)
+	//err := godotenv.Load()
+	//helper.PanicIfError(err)
 
 	db := config.NewDBMySQL()
 	mongoDb := config.NewDBMongo()
