@@ -1,0 +1,54 @@
+version: "3.9"
+services:
+  mysql_db:
+    image: mysql:8.0.30-oracle
+    restart: always
+    environment:
+      MYSQL_DATABASE: "mini-course"
+      MYSQL_USER: "mini"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_vol:/var/lib/mysql
+
+  mongo_db:
+    image: mongo:6.0.1-focal
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: "mini-course"
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "example"
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_vol:/data/db
+
+  api:
+    build:
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql_db
+      - mongo_db
+    links:
+      - mysql_db
+      - mongo_db
+networks:
+  default:
+    name: mini-course-service-network
+volumes:
+  mysql_vol:
+    external: false
+  mongo_vol:
+    external: false
