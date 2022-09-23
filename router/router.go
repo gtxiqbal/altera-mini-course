@@ -31,7 +31,7 @@ func NewRouter() *Router {
 }
 
 func (r *Router) StartServer() {
-	r.e.Logger.Fatal(r.e.Start(fmt.Sprintf(":%s", os.Getenv("SERVER_PORT"))))
+	r.e.Logger.Fatal(r.e.Start(fmt.Sprintf(":%s", os.Getenv("PORT"))))
 }
 
 func (r *Router) SetRouteUser(userService service.UserService) {
